@@ -2,12 +2,18 @@ package com.newsapp.feature.news.presentation.controller
 
 import com.newsapp.feature.news.domain.entity.NewsEntity
 
-sealed class MainViewState {
-    object Started : MainViewState()
 
-    object Loading : MainViewState()
+data class MainViewState(
+    val selectedCategory: String,
+    val status: MainViewStatus
+)
 
-    data class Data(val news: ArrayList<NewsEntity>) : MainViewState()
+sealed class MainViewStatus {
+    object Started : MainViewStatus()
 
-    data class Error(val message: String?) : MainViewState()
+    object Loading : MainViewStatus()
+
+    data class Data(val news: ArrayList<NewsEntity>) : MainViewStatus()
+
+    data class Error(val message: String?) : MainViewStatus()
 }
