@@ -11,9 +11,9 @@ import kotlinx.coroutines.withContext
 import java.lang.Exception
 
 class NewsRepositoryImpl(private val newsDTO: NewsDTO) : NewsRepository {
-    override suspend fun getNews(category: String): GetNewsResult = withContext(Dispatchers.Default) {
+    override suspend fun getNews(category: String, localeCountry:String): GetNewsResult = withContext(Dispatchers.Default) {
       try {
-          val response = newsDTO.getNews(apiKey = ApiConstants.API_KEY, category = category)
+          val response = newsDTO.getNews(apiKey = ApiConstants.API_KEY, category = category, country = localeCountry)
           val entities =  ArrayList(response.body().let {
               it?.articles?.map { it -> it.toEntity() }
           })

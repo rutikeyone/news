@@ -15,13 +15,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
             <TextView
+                android:id="@+id/idTVNewsApp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="?android:attr/actionBarSize"
                 android:text="@string/news_app"
                 android:textColor="@color/yellow"
                 android:textAlignment="center"
@@ -30,9 +27,8 @@
                 android:textSize="20sp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
-                android:textStyle="bold"/>
-
-        </RelativeLayout>
+                android:textStyle="bold"
+                android:layout_weight="1"/>
 
     </androidx.appcompat.widget.Toolbar>
 

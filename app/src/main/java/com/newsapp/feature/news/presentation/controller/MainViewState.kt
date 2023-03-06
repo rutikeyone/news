@@ -5,6 +5,7 @@ import com.newsapp.feature.news.domain.entity.NewsEntity
 
 data class MainViewState(
     val selectedCategory: String,
+    val localeCountry: String,
     val status: MainViewStatus
 )
 

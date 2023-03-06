@@ -4,22 +4,27 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.newsapp.feature.news.domain.entity.CategoryEntity
+import com.newsapp.feature.news.domain.entity.LocalizationEntity
 import com.newsapp.feature.news.domain.repository.GetNewsResult
 import com.newsapp.feature.news.domain.repository.NewsRepository
 import kotlinx.coroutines.launch
 
+
 class MainViewModel(
     private val newsRepository: NewsRepository,
-    private val categories: ArrayList<CategoryEntity>) : ViewModel() {
-    var state = MutableLiveData<MainViewState>(MainViewState(categories.first().category, MainViewStatus.Started))
+    private val categories: ArrayList<CategoryEntity>,
+    private val localeCountry: String
+) : ViewModel() {
+    var state = MutableLiveData(MainViewState(categories.first().category, localeCountry, MainViewStatus.Started))
         private set
 
 
-    fun getNews() {
+    fun getNews(availableCountry: ArrayList<LocalizationEntity>) {
         viewModelScope.launch {
             state.value = state.value?.copy(status = MainViewStatus.Loading)
+            val localeCountry = if(availableCountry.any { it -> it.abbreviation == state.value!!.localeCountry}) state.value!!.localeCountry else "us"
 
-            when(val getNewsResult = newsRepository.getNews(state.value!!.selectedCategory)) {
+            when(val getNewsResult = newsRepository.getNews(state.value!!.selectedCategory, localeCountry)) {
                is GetNewsResult.Failure -> {
                    state.value = state.value?.copy(status = MainViewStatus.Error(getNewsResult.error))
                }
@@ -30,9 +35,14 @@ class MainViewModel(
         }
     }
 
-    fun changeSelectedCategory(category: CategoryEntity) {
+    fun changeSelectedCategory(category: CategoryEntity, availableCountry: ArrayList<LocalizationEntity>) {
         state.value = state.value!!.copy(selectedCategory = category.category)
-        getNews()
+        getNews(availableCountry)
+    }
+
+    fun changeCurrentLocale(localeCountry : String, availableCountry: ArrayList<LocalizationEntity>) {
+        state.value = state.value!!.copy(localeCountry = localeCountry)
+        getNews(availableCountry)
     }
 
 }

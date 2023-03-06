@@ -7,11 +7,12 @@ import com.newsapp.feature.news.domain.repository.NewsRepository
 
 class MainViewModelFactory(
     private val newsRepository: NewsRepository,
-    private val categories: ArrayList<CategoryEntity>
+    private val categories: ArrayList<CategoryEntity>,
+    private val localeCountry: String
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-            return MainViewModel(newsRepository, categories) as T
+            return MainViewModel(newsRepository, categories, localeCountry) as T
         }
         throw IllegalArgumentException("Unknown View Model Class")
     }
