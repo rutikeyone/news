@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Новости</string>
+    <string name="news_app">Новости</string>
+    <string name="all">Все</string>
+    <string name="health">Здоровье</string>
+    <string name="entertainment">Развлечение</string>
+    <string name="business">Бизнес</string>
+    <string name="general">Общие</string>
+    <string name="sports">Спорт</string>
+    <string name="science">Наука</string>
+    <string name="technology">Технологии</string>
+    <string name="read_full_news">Читать полностью</string>
+</resources>
